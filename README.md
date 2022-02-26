@@ -1,16 +1,14 @@
-# pellet_manager
+# Pellet Manager
+A new Flutter project. 🚀
+Made for fun. 💻
 
-A new Flutter project.
+## What is the goal? ⚽
+The goal building this app is to learn Flutter and to create something that can also be usefull, firtst of all for me and then for other.
 
-## Getting Started
+## Why Pellet Manager? 💡
+The idea of ​​"Pellet Manager" arises from the need to be able to keep track of consumption, costs, maintenance, etc. of a pellet boiler.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Author
+Roberto Guglielmin (Eilgug) 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
