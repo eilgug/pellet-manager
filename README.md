@@ -10,5 +10,5 @@ The idea of ​​"Pellet Manager" arises from the need to be able to keep track
 
 
 ## Author
-Roberto Guglielmin (Eilgug) 
+© Roberto Guglielmin (Eilgug) 
 

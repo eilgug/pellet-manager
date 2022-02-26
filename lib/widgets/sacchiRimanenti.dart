@@ -13,11 +13,14 @@ class SacchiRimanenti extends StatelessWidget {
           child: Column(children: [
             Text(
               'SCORTA',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade900),
             ),
             Text(
               '999',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 60),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60,
+                  color: Colors.grey.shade900),
             ),
             TextButton(
               onPressed: () {},

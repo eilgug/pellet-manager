@@ -13,11 +13,14 @@ class ConsumoMedio extends StatelessWidget {
           child: Column(children: [
             Text(
               'MEDIA',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade900),
             ),
             Text(
               '5',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 60),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60,
+                  color: Colors.grey.shade900),
             ),
             TextButton(
               onPressed: () {},
