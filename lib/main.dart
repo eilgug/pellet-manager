@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pellet_manager/models/carichi.dart';
 import 'package:pellet_manager/widgets/consumoMedio.dart';
+import 'package:pellet_manager/widgets/loadList.dart';
 import 'package:pellet_manager/widgets/myBottomAppBar.dart';
 import 'package:pellet_manager/widgets/sacchiRimanenti.dart';
 
@@ -32,18 +34,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Loads> _userLoads = [
+    Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
+    Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
+  ];
+
+  void _addNewLoads(int bags, DateTime date) {
+    final Loads newLoad =
+        Loads(id: DateTime.now().toString(), bags: bags, date: date);
+
+    setState(() {
+      _userLoads.add(newLoad);
+      _orderBy(1);
+    });
+  }
+
+  void _orderBy(int by) {
+    setState(() {
+      _userLoads.sort((a, b) => a.date.compareTo(b.date));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+        ),
         centerTitle: true,
         elevation: 0,
       ),
       bottomNavigationBar: MyBottomAppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _orderBy(1),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
         backgroundColor: Colors.white,
@@ -65,30 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ConsumoMedio(),
             ],
           ),
-          Container(
-            height: 400,
-            child: ListView(
-              children: [
-                Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: Icon(
-                          Icons.fireplace_outlined,
-                          color: Theme.of(context).cardColor,
-                        )),
-                    title: Text('4'),
-                    subtitle: Text(DateTime.now().toString()),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete_outline,
-                          color: Theme.of(context).errorColor),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+          //Lista carichi
+          LoadsList(userLoads: _userLoads.reversed.toList())
         ],
       ),
     );
