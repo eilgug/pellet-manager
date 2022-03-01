@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class ConsumoMedio extends StatelessWidget {
   final double average;
-  const ConsumoMedio({Key? key, required this.average}) : super(key: key);
+  final Function() newLoad;
+  const ConsumoMedio({Key? key, required this.average, required this.newLoad})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ConsumoMedio extends StatelessWidget {
                   color: Colors.grey.shade900),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: newLoad,
               child: Text('Nuovo carico'),
             ),
           ]),

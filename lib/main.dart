@@ -3,6 +3,7 @@ import 'package:pellet_manager/models/loads.dart';
 import 'package:pellet_manager/widgets/consumoMedio.dart';
 import 'package:pellet_manager/widgets/loadList.dart';
 import 'package:pellet_manager/widgets/myBottomAppBar.dart';
+import 'package:pellet_manager/widgets/newLoad.dart';
 import 'package:pellet_manager/widgets/sacchiRimanenti.dart';
 
 void main() {
@@ -70,6 +71,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _startAddNewLoads(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30),
+          ),
+        ),
+        builder: (bCtx) {
+          return GestureDetector(
+              onTap: () {},
+              behavior: HitTestBehavior.opaque,
+              child: NewLoad(stock: _stock, addLoad: _addNewLoads));
+        });
+  }
+
   void _orderBy(int by) {
     _userLoads.sort((a, b) => a.date.compareTo(b.date));
   }
@@ -87,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: MyBottomAppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addNewLoads(6, DateTime.now()),
+        onPressed: () => _startAddNewLoads(context),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
         backgroundColor: Colors.white,
@@ -107,7 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SacchiRimanenti(stock: _stock),
-              ConsumoMedio(average: _average),
+              ConsumoMedio(
+                  average: _average, newLoad: () => _startAddNewLoads(context)),
             ],
           ),
           SizedBox(
@@ -116,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             margin: EdgeInsets.only(left: 8, bottom: 4),
             child: Text(
-              "LISTA DEI CARICHI",
+              "STORICO DEI CARICHI",
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,

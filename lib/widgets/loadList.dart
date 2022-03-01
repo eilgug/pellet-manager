@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../models/loads.dart';
 
@@ -27,7 +28,9 @@ class LoadsList extends StatelessWidget {
                           color: Theme.of(context).cardColor,
                         )),
                     title: Text(userLoads[index].bags.toString()),
-                    subtitle: Text(userLoads[index].date.toString()),
+                    subtitle: Text(
+                      DateFormat('dd/MM/yyyy').format(userLoads[index].date),
+                    ),
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline,
                           color: Theme.of(context).errorColor),
