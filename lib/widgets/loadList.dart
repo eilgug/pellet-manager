@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../models/carichi.dart';
+import '../models/loads.dart';
 
 class LoadsList extends StatelessWidget {
   final List<Loads> userLoads;
+  final Function deleteLoad;
 
-  const LoadsList({Key? key, required this.userLoads}) : super(key: key);
+  const LoadsList({Key? key, required this.userLoads, required this.deleteLoad})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 400,
       child: userLoads.isEmpty
-          ? Text('LISTA VUOTA')
+          ? Center(child: Text('LISTA VUOTA'))
           : ListView.builder(
               itemCount: userLoads.length,
               itemBuilder: (context, index) {
@@ -29,7 +31,7 @@ class LoadsList extends StatelessWidget {
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline,
                           color: Theme.of(context).errorColor),
-                      onPressed: () {},
+                      onPressed: () => deleteLoad(userLoads[index].id),
                     ),
                   ),
                 );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SacchiRimanenti extends StatelessWidget {
-  const SacchiRimanenti({Key? key}) : super(key: key);
+  final int stock;
+  const SacchiRimanenti({Key? key, required this.stock}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SacchiRimanenti extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Colors.grey.shade900),
             ),
             Text(
-              '999',
+              stock.toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 60,

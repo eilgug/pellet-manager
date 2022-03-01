@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ConsumoMedio extends StatelessWidget {
-  const ConsumoMedio({Key? key}) : super(key: key);
+  final double average;
+  const ConsumoMedio({Key? key, required this.average}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ConsumoMedio extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Colors.grey.shade900),
             ),
             Text(
-              '5',
+              average.toStringAsFixed(1),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 60,

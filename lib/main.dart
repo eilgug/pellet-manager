@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pellet_manager/models/carichi.dart';
+import 'package:pellet_manager/models/loads.dart';
 import 'package:pellet_manager/widgets/consumoMedio.dart';
 import 'package:pellet_manager/widgets/loadList.dart';
 import 'package:pellet_manager/widgets/myBottomAppBar.dart';
@@ -34,9 +34,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _stock = 90;
+  double _average = 0.0;
   final List<Loads> _userLoads = [
-    Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
-    Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
+    //Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
+    //Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
   ];
 
   void _addNewLoads(int bags, DateTime date) {
@@ -44,15 +46,32 @@ class _MyHomePageState extends State<MyHomePage> {
         Loads(id: DateTime.now().toString(), bags: bags, date: date);
 
     setState(() {
+      _stock -= newLoad.bags;
+      _average = ((_average * _userLoads.length) + newLoad.bags) /
+          (_userLoads.length + 1);
+
       _userLoads.add(newLoad);
       _orderBy(1);
     });
   }
 
-  void _orderBy(int by) {
+  void _deleteLoad(String id) {
     setState(() {
-      _userLoads.sort((a, b) => a.date.compareTo(b.date));
+      Loads loadToBeRemoved = _userLoads.firstWhere((load) => load.id == id);
+
+      _stock += loadToBeRemoved.bags; // Aggiorno lo stock
+      _average = ((_average * _userLoads.length) - loadToBeRemoved.bags) /
+          (_userLoads.length - 1); // Aggiorno la media
+      if (_average.isNaN) {
+        _average = 0.0;
+      } // Verifico che la average sia un numero valido
+
+      _userLoads.remove(loadToBeRemoved); // Rimuovo l'elemento dalla lista
     });
+  }
+
+  void _orderBy(int by) {
+    _userLoads.sort((a, b) => a.date.compareTo(b.date));
   }
 
   @override
@@ -68,13 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: MyBottomAppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _orderBy(1),
+        onPressed: () => _addNewLoads(6, DateTime.now()),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
         backgroundColor: Colors.white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           // Grafico carici giornalieri
           Container(
@@ -86,12 +106,28 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SacchiRimanenti(),
-              ConsumoMedio(),
+              SacchiRimanenti(stock: _stock),
+              ConsumoMedio(average: _average),
             ],
           ),
+          SizedBox(
+            height: 16,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 8, bottom: 4),
+            child: Text(
+              "LISTA DEI CARICHI",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           //Lista carichi
-          LoadsList(userLoads: _userLoads.reversed.toList())
+          LoadsList(
+            userLoads: _userLoads.reversed.toList(),
+            deleteLoad: _deleteLoad,
+          )
         ],
       ),
     );
