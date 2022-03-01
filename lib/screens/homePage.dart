@@ -82,13 +82,6 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // Grafico carici giornalieri
-          Container(
-            width: double.infinity,
-            child: Card(
-              child: Text('GRAFICO'),
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -97,12 +90,12 @@ class _HomePageState extends State<HomePage> {
                   average: _average, newLoad: () => _startAddNewLoads(context)),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Container(
-            margin: EdgeInsets.only(left: 8, bottom: 4),
-            child: Text(
+            margin: const EdgeInsets.only(left: 8, bottom: 4),
+            child: const Text(
               "STORICO DEI CARICHI",
               style: TextStyle(
                 fontSize: 14,
@@ -114,6 +107,7 @@ class _HomePageState extends State<HomePage> {
           LoadsList(
             userLoads: _userLoads.reversed.toList(),
             deleteLoad: _deleteLoad,
+            average: _average,
           )
         ],
       ),

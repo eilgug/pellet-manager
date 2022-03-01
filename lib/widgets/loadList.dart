@@ -6,8 +6,13 @@ import '../models/loads.dart';
 class LoadsList extends StatelessWidget {
   final List<Loads> userLoads;
   final Function deleteLoad;
+  final double average;
 
-  const LoadsList({Key? key, required this.userLoads, required this.deleteLoad})
+  const LoadsList(
+      {Key? key,
+      required this.userLoads,
+      required this.deleteLoad,
+      required this.average})
       : super(key: key);
 
   @override
@@ -45,9 +50,23 @@ class LoadsList extends StatelessWidget {
                           Icons.fireplace_outlined,
                           color: Theme.of(context).cardColor,
                         )),
-                    title: Text(userLoads[index].bags.toString()),
+                    title: Row(
+                      children: [
+                        Text('Sacchi: ${userLoads[index].bags.toString()}'),
+                        userLoads[index].bags < average
+                            ? Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.green,
+                              )
+                            : Icon(
+                                Icons.arrow_drop_up,
+                                color: Colors.red.shade900,
+                              )
+                      ],
+                    ),
                     subtitle: Text(
                       DateFormat('dd/MM/yyyy').format(userLoads[index].date),
+                      style: TextStyle(fontSize: 12),
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline,
