@@ -2,27 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class NewLoad extends StatefulWidget {
+class NewOrder extends StatefulWidget {
   final int stock;
   final Function addLoad;
 
-  const NewLoad({Key? key, required this.stock, required this.addLoad})
+  const NewOrder({Key? key, required this.stock, required this.addLoad})
       : super(key: key);
 
   @override
-  _NewLoadState createState() => _NewLoadState();
+  _NewOrderState createState() => _NewOrderState();
 }
 
-class _NewLoadState extends State<NewLoad> {
+class _NewOrderState extends State<NewOrder> {
   final _bagsAmountController = TextEditingController();
+  final _amountController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
 
   void _submitData() {
-    if (_bagsAmountController.text.isEmpty) {
+    if (_bagsAmountController.text.isEmpty || _amountController.text.isEmpty) {
       return;
     }
 
     final enteredBagsAmount = int.parse(_bagsAmountController.text);
+    final enteredAmount = int.parse(_amountController.text);
 
     if (enteredBagsAmount > widget.stock) {
       return;
@@ -81,7 +83,7 @@ class _NewLoadState extends State<NewLoad> {
                     height: 10,
                   ),
                   Text(
-                    "Nuovo carico",
+                    "Nuovo ordine",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ],
@@ -95,14 +97,22 @@ class _NewLoadState extends State<NewLoad> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
-                label: Text("Numero di sacchi inseriti"),
+                label: Text("Numero sacchi ordinati"),
+              ),
+            ),
+            TextField(
+              controller: _bagsAmountController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: const InputDecoration(
+                label: Text("Spesa totale"),
               ),
             ),
             Row(
               children: [
                 Expanded(
                   child: Text(
-                      'Data carico: ${DateFormat('dd/MM/yyy').format(_selectedDate)}'),
+                      'Data ordine: ${DateFormat('dd/MM/yyy').format(_selectedDate)}'),
                 ),
                 TextButton(
                     child: const Text('Cambia data'),

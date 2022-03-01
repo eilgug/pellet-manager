@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class SacchiRimanenti extends StatelessWidget {
   final int stock;
   final double average;
-  const SacchiRimanenti({Key? key, required this.stock, required this.average})
+  final Function() newOrder;
+
+  const SacchiRimanenti(
+      {Key? key,
+      required this.stock,
+      required this.average,
+      required this.newOrder})
       : super(key: key);
 
   @override
@@ -28,7 +34,7 @@ class SacchiRimanenti extends StatelessWidget {
                       : Colors.red.shade900),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: newOrder,
               child: Text('Nuovo ordine'),
             ),
           ]),

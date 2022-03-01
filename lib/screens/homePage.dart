@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pellet_manager/widgets/newOrder.dart';
 
 import '../models/loads.dart';
 import '../widgets/consumoMedio.dart';
@@ -53,6 +54,7 @@ class _HomePageState extends State<HomePage> {
   void _startAddNewLoads(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
+        isScrollControlled: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(30),
@@ -63,6 +65,23 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
               behavior: HitTestBehavior.opaque,
               child: NewLoad(stock: _stock, addLoad: _addNewLoads));
+        });
+  }
+
+  void _startAddNewOrder(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30),
+          ),
+        ),
+        builder: (bCtx) {
+          return GestureDetector(
+              onTap: () {},
+              behavior: HitTestBehavior.opaque,
+              child: NewOrder(stock: _stock, addLoad: _addNewLoads));
         });
   }
 
@@ -85,7 +104,10 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SacchiRimanenti(stock: _stock, average: _average),
+              SacchiRimanenti(
+                  stock: _stock,
+                  average: _average,
+                  newOrder: () => _startAddNewOrder(context)),
               ConsumoMedio(
                   average: _average, newLoad: () => _startAddNewLoads(context)),
             ],

@@ -22,7 +22,7 @@ class AboutPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Text('© Eilgug')
+              const Text('© Eilgug')
             ],
           ),
         ],
