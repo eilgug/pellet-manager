@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class SacchiRimanenti extends StatelessWidget {
   final int stock;
-  const SacchiRimanenti({Key? key, required this.stock}) : super(key: key);
+  final double average;
+  const SacchiRimanenti({Key? key, required this.stock, required this.average})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,9 @@ class SacchiRimanenti extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 60,
-                  color: Colors.grey.shade900),
+                  color: stock > (average * 2)
+                      ? Colors.grey.shade900
+                      : Colors.red.shade900),
             ),
             TextButton(
               onPressed: () {},

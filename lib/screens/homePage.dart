@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SacchiRimanenti(stock: _stock),
+              SacchiRimanenti(stock: _stock, average: _average),
               ConsumoMedio(
                   average: _average, newLoad: () => _startAddNewLoads(context)),
             ],
