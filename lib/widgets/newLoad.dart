@@ -59,6 +59,7 @@ class _NewLoadState extends State<NewLoad> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Center(
             child: Column(
@@ -104,6 +105,9 @@ class _NewLoadState extends State<NewLoad> {
                   child: const Text('Cambia data'),
                   onPressed: _presentDatePicker),
             ],
+          ),
+          SizedBox(
+            height: 24,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

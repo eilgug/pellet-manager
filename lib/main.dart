@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pellet_manager/screens/aboutPage.dart';
+import 'package:pellet_manager/screens/fornitoriPage.dart';
 import 'package:pellet_manager/screens/homePage.dart';
+import 'package:pellet_manager/screens/spesePage.dart';
 import 'package:pellet_manager/widgets/myBottomAppBar.dart';
 
 import 'widgets/newLoad.dart';
@@ -33,6 +37,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    HomePage(),
+    SpesePage(),
+    FornitoriPage(),
+    AboutPage()
+  ];
+
+  void _navigate(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(
           widget.title,
+          style: GoogleFonts.pacifico(),
         ),
         centerTitle: true,
         elevation: 0,
       ),
-      bottomNavigationBar: MyBottomAppBar(),
-      body: HomePage(),
+      bottomNavigationBar: MyBottomAppBar(onTap: _navigate),
+      body: _pages[_selectedIndex],
     );
   }
 }

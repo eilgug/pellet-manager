@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => _startAddNewLoads(context),
           child: const Icon(Icons.add),
           backgroundColor: Colors.white),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
