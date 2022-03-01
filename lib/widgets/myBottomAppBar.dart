@@ -9,7 +9,6 @@ class MyBottomAppBar extends StatelessWidget {
       shape: CircularNotchedRectangle(),
       elevation: 4,
       child: Container(
-        margin: EdgeInsets.only(right: 80),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

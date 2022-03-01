@@ -45,11 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0,
       ),
       bottomNavigationBar: MyBottomAppBar(),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.add),
-          backgroundColor: Colors.white),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: HomePage(),
     );
   }

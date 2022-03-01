@@ -23,12 +23,14 @@ class LoadsList extends StatelessWidget {
                   child: Icon(
                     Icons.fireplace_outlined,
                     size: 70,
-                    color: Colors.amber.shade900,
+                    color: Colors.amber.shade600,
                   ),
                 ),
                 Text(
                   'Aggiungi un carico per cominciare',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ))

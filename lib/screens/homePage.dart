@@ -72,43 +72,51 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        // Grafico carici giornalieri
-        Container(
-          width: double.infinity,
-          child: Card(
-            child: Text('GRAFICO'),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SacchiRimanenti(stock: _stock),
-            ConsumoMedio(
-                average: _average, newLoad: () => _startAddNewLoads(context)),
-          ],
-        ),
-        SizedBox(
-          height: 16,
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 8, bottom: 4),
-          child: Text(
-            "STORICO DEI CARICHI",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => _startAddNewLoads(context),
+          child: const Icon(Icons.add),
+          backgroundColor: Colors.white),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // Grafico carici giornalieri
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text('GRAFICO'),
             ),
           ),
-        ),
-        //Lista carichi
-        LoadsList(
-          userLoads: _userLoads.reversed.toList(),
-          deleteLoad: _deleteLoad,
-        )
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SacchiRimanenti(stock: _stock),
+              ConsumoMedio(
+                  average: _average, newLoad: () => _startAddNewLoads(context)),
+            ],
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 8, bottom: 4),
+            child: Text(
+              "STORICO DEI CARICHI",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          //Lista carichi
+          LoadsList(
+            userLoads: _userLoads.reversed.toList(),
+            deleteLoad: _deleteLoad,
+          )
+        ],
+      ),
     );
   }
 }
