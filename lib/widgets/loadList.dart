@@ -15,7 +15,23 @@ class LoadsList extends StatelessWidget {
     return Container(
       height: 400,
       child: userLoads.isEmpty
-          ? Center(child: Text('LISTA VUOTA'))
+          ? Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Icon(
+                    Icons.fireplace_outlined,
+                    size: 70,
+                    color: Colors.amber.shade900,
+                  ),
+                ),
+                Text(
+                  'Aggiungi un carico per cominciare',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ))
           : ListView.builder(
               itemCount: userLoads.length,
               itemBuilder: (context, index) {
