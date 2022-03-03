@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:pellet_manager/models/appData.dart';
 import 'package:pellet_manager/models/orders.dart';
 import 'package:pellet_manager/widgets/newOrder.dart';
 
@@ -33,7 +30,6 @@ class _HomePageState extends State<HomePage> {
           (_userLoads.length + 1);
 
       _userLoads.add(newLoad);
-      //_orderBy(1);
       _orderByDate(_userLoads);
     });
   }
