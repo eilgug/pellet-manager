@@ -80,7 +80,7 @@ class _NewLoadState extends State<NewLoad> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     "Nuovo carico",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
@@ -109,7 +109,7 @@ class _NewLoadState extends State<NewLoad> {
                     onPressed: _presentDatePicker),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Row(

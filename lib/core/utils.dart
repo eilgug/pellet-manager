@@ -7,7 +7,7 @@ void startAddNewLoads(BuildContext ctx, int stock, Function addNewLoads) {
   showModalBottomSheet(
       context: ctx,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(30),
         ),
@@ -24,7 +24,7 @@ void startAddNewOrder(BuildContext ctx, int stock, Function addNewOrder) {
   showModalBottomSheet(
       context: ctx,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(30),
         ),

@@ -35,7 +35,7 @@ class SacchiRimanenti extends StatelessWidget {
             ),
             TextButton(
               onPressed: newOrder,
-              child: Text('Nuovo ordine'),
+              child: const Text('Nuovo ordine'),
             ),
           ]),
         ),

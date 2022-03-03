@@ -27,7 +27,7 @@ class ConsumoMedio extends StatelessWidget {
             ),
             TextButton(
               onPressed: newLoad,
-              child: Text('Nuovo carico'),
+              child: const Text('Nuovo carico'),
             ),
           ]),
         ),
