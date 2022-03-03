@@ -7,7 +7,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -15,7 +15,7 @@ class AboutPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              Container(
+              SizedBox(
                 height: size.width / 3,
                 child: Image.asset(
                   'assets/images/logo_capelli.png',

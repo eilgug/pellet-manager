@@ -24,14 +24,12 @@ class LoadsList extends StatelessWidget {
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: Icon(
-                    Icons.fireplace_outlined,
-                    size: 70,
-                    color: Colors.amber.shade600,
-                  ),
+                Icon(
+                  Icons.fireplace_outlined,
+                  size: 70,
+                  color: Colors.amber.shade600,
                 ),
-                Text(
+                const Text(
                   'Aggiungi un carico per cominciare',
                   style: TextStyle(
                     fontSize: 16,
@@ -52,11 +50,11 @@ class LoadsList extends StatelessWidget {
                         )),
                     title: Row(
                       children: [
-                        Text('Sacchi: ${userLoads[index].bags.toString()}'),
+                        Text('Sacchi: ${userLoads[index].bags}'),
                         userLoads[index].bags < average
                             ? Icon(
                                 Icons.arrow_drop_down,
-                                color: Colors.green,
+                                color: Colors.green.shade900,
                               )
                             : Icon(
                                 Icons.arrow_drop_up,
@@ -66,7 +64,7 @@ class LoadsList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       DateFormat('dd/MM/yyyy').format(userLoads[index].date),
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.delete_outline,
