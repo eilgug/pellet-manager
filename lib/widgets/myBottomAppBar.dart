@@ -39,6 +39,7 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
       onTap: _onItemTapped,
       showUnselectedLabels: true,
       selectedFontSize: 12,
+      type: BottomNavigationBarType.fixed,
     );
   }
 }

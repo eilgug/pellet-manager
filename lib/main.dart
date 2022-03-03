@@ -57,7 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
             addNewLoad: _addNewLoads,
             addNewOrder: _addNewOrder);
       case 1:
-        return const SpesePage();
+        return SpesePage(
+          stock: _stock,
+          average: _average,
+          addNewOrder: _addNewOrder,
+          userOrders: _userOrders,
+          deleteOrder: _deleteOrder,
+        );
       case 2:
         return const FornitoriPage();
       case 3:
@@ -115,7 +121,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // TODO: _deleteOrder
+  void _deleteOrder(String id) {
+    setState(() {
+      Orders orderToBeRemoved =
+          _userOrders.firstWhere((order) => order.id == id);
+
+      _stock -= orderToBeRemoved.bags;
+      _userOrders.remove(orderToBeRemoved);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
