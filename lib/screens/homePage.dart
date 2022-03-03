@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:pellet_manager/models/appData.dart';
+import 'package:pellet_manager/models/orders.dart';
 import 'package:pellet_manager/widgets/newOrder.dart';
 
 import '../models/loads.dart';
@@ -17,11 +21,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _stock = 90;
   double _average = 0.0;
-  final List<Loads> _userLoads = [
-    //Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
-    //Loads(id: DateTime.now().toString(), bags: 4, date: DateTime.now()),
-  ];
-
+  final List<Loads> _userLoads = [];
+  final List<Orders> _userOrders = [];
   void _addNewLoads(int bags, DateTime date) {
     final Loads newLoad =
         Loads(id: DateTime.now().toString(), bags: bags, date: date);
@@ -32,7 +33,21 @@ class _HomePageState extends State<HomePage> {
           (_userLoads.length + 1);
 
       _userLoads.add(newLoad);
-      _orderBy(1);
+      //_orderBy(1);
+      _orderByDate(_userLoads);
+    });
+  }
+
+  void _addNewOrder(int bags, DateTime date, int totalAmount) {
+    final Orders newOrder = Orders(
+        id: DateTime.now().toString(),
+        bags: bags,
+        date: date,
+        totalAmount: totalAmount);
+
+    setState(() {
+      _stock += bags;
+      _userOrders.add(newOrder);
     });
   }
 
@@ -81,12 +96,16 @@ class _HomePageState extends State<HomePage> {
           return GestureDetector(
               onTap: () {},
               behavior: HitTestBehavior.opaque,
-              child: NewOrder(stock: _stock, addLoad: _addNewLoads));
+              child: NewOrder(stock: _stock, addOrder: _addNewOrder));
         });
   }
 
   void _orderBy(int by) {
     _userLoads.sort((a, b) => a.date.compareTo(b.date));
+  }
+
+  void _orderByDate(List list) {
+    list.sort((a, b) => a.date.compareTo(b.date));
   }
 
   @override

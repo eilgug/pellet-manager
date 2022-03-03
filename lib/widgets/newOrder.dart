@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 
 class NewOrder extends StatefulWidget {
   final int stock;
-  final Function addLoad;
+  final Function addOrder;
 
-  const NewOrder({Key? key, required this.stock, required this.addLoad})
+  const NewOrder({Key? key, required this.stock, required this.addOrder})
       : super(key: key);
 
   @override
@@ -26,11 +26,7 @@ class _NewOrderState extends State<NewOrder> {
     final enteredBagsAmount = int.parse(_bagsAmountController.text);
     final enteredAmount = int.parse(_amountController.text);
 
-    if (enteredBagsAmount > widget.stock) {
-      return;
-    }
-
-    widget.addLoad(enteredBagsAmount, _selectedDate);
+    widget.addOrder(enteredBagsAmount, _selectedDate, enteredAmount);
     Navigator.of(context).pop();
   }
 
@@ -101,7 +97,7 @@ class _NewOrderState extends State<NewOrder> {
               ),
             ),
             TextField(
-              controller: _bagsAmountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
