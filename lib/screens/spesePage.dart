@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pellet_manager/models/orders.dart';
+import 'package:pellet_manager/widgets/autonomia.dart';
 import 'package:pellet_manager/widgets/newOrder.dart';
 import 'package:pellet_manager/widgets/orderList.dart';
 import 'package:pellet_manager/widgets/sacchiRimanenti.dart';
@@ -27,15 +28,16 @@ class SpesePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SacchiRimanenti(
-                stock: stock,
-                average: average,
-                newOrder: () => startAddNewOrder(context, stock, addNewOrder))
-          ],
-        ),
+        Row(children: [
+          SacchiRimanenti(
+            stock: stock,
+            average: average,
+            newOrder: () => startAddNewOrder(context, stock, addNewOrder),
+          ),
+          Autonomia(
+            ggRestanti: stock / average,
+          ),
+        ]),
         const SizedBox(
           height: 16,
         ),

@@ -8,8 +8,7 @@ class ConsumoMedio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
+    return Expanded(
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
