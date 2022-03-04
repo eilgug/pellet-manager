@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pellet Manager',
+      title: 'PelletManager',
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'Pellet Manager'),
+      home: const MyHomePage(title: 'PelletManager'),
     );
   }
 }
