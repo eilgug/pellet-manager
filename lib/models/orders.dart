@@ -16,6 +16,15 @@ class Orders {
         totalAmount = (map['totalAmount'] as num).toInt(),
         date = DateTime.parse(map['date'].toString());
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'bags': bags,
+      'totalAmount': totalAmount,
+      'date': date.toString()
+    };
+  }
+
   double get amountPerBag {
     return totalAmount / bags;
   }

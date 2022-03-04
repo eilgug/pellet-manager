@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pellet_manager/core/filehandler.dart';
 import 'package:pellet_manager/models/appdata.dart';
 import 'package:pellet_manager/screens/aboutPage.dart';
 import 'package:pellet_manager/screens/fornitoriPage.dart';
@@ -44,26 +43,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  int _stock = 90;
-  double _average = 0.0;
-  final List<Loads> _userLoads = [];
-  final List<Orders> _userOrders = [];
+  AppData appData =
+      AppData(stock: 0, average: 0, userLoads: [], userOrders: []);
 
-  final String _content = '''{
-    "stock": 0,
-    "average": 0.0,
-    "userLoads": [
-    ],
-    "userOrders": [
-    ]
-}''';
+  final FileHandler _fileHandler = FileHandler.instance;
 
-  late AppData appData;
-
+  @override
   @protected
   @mustCallSuper
   void initState() {
-    appData = AppData.fromJson(jsonDecode(_content));
+    super.initState();
+
+    _fileHandler.readAppData().then((AppData value) {
+      setState(() {
+        appData = value;
+      });
+    });
   }
 
   Widget _getPages(int index) {
@@ -111,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appData.userLoads.add(newLoad);
       orderByDate(appData.userLoads);
+      _fileHandler.writeAppData(appData);
     });
   }
 
@@ -124,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       appData.stock += bags;
       appData.userOrders.add(newOrder);
+      _fileHandler.writeAppData(appData);
     });
   }
 
@@ -141,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
 
       appData.userLoads.remove(loadToBeRemoved);
+      _fileHandler.writeAppData(appData);
     });
   }
 
@@ -151,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appData.stock -= orderToBeRemoved.bags;
       appData.userOrders.remove(orderToBeRemoved);
+      _fileHandler.writeAppData(appData);
     });
   }
 

@@ -4,8 +4,8 @@ import 'loads.dart';
 class AppData {
   int stock;
   double average;
-  final List<Loads> userLoads;
-  final List<Orders> userOrders;
+  List<Loads> userLoads;
+  List<Orders> userOrders;
 
   AppData(
       {required this.stock,
@@ -22,4 +22,13 @@ class AppData {
         userOrders = (map['userOrders'] as List)
             .map((order) => Orders.fromJson(order))
             .toList();
+
+  Map<String, dynamic> toJson() {
+    return {
+      'stock': stock,
+      'average': average,
+      'userLoads': userLoads.map((e) => e.toJson()).toList(),
+      'userOrders': userOrders.map((e) => e.toJson()).toList()
+    };
+  }
 }

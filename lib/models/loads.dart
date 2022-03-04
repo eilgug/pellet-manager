@@ -9,4 +9,8 @@ class Loads {
       : id = map['id'] as String,
         bags = (map['bags'] as num).toInt(),
         date = DateTime.parse(map['date'].toString());
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'bags': bags, 'date': date.toString()};
+  }
 }
