@@ -23,7 +23,11 @@ class FileHandler {
     final _directory = await getApplicationDocumentsDirectory();
     final _path = _directory.path;
 
-    return File('$_path/$_fileNameAppData');
+    AppData appData =
+        AppData(stock: 0, average: 0, userLoads: [], userOrders: []);
+
+    return File('$_path/$_fileNameAppData')
+        .writeAsString(jsonEncode(appData.toJson()));
   }
 
   Future<void> writeAppData(AppData appData) async {
