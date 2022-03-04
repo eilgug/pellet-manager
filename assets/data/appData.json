@@ -1,0 +1,30 @@
+{
+    "stock": 1,
+    "average": 0.0,
+    "userLoads": [
+        {
+            "id": "123",
+            "bags": 3,
+            "date": "2012-02-27"
+        },
+        {
+            "id": "456",
+            "bags": 4,
+            "date": "2012-02-27"
+        }
+    ],
+    "userOrders": [
+        {
+            "id": "123",
+            "bags": 3,
+            "totalAmount" : 128,
+            "date": "2012-02-27"
+        },
+        {
+            "id": "456",
+            "bags": 4,
+            "totalAmount" : 128,
+            "date": "2012-02-27"
+        }
+    ]
+}

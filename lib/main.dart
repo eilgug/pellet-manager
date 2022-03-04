@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pellet_manager/models/appdata.dart';
 import 'package:pellet_manager/screens/aboutPage.dart';
 import 'package:pellet_manager/screens/fornitoriPage.dart';
 import 'package:pellet_manager/screens/homePage.dart';
@@ -46,22 +49,39 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Loads> _userLoads = [];
   final List<Orders> _userOrders = [];
 
+  final String _content = '''{
+    "stock": 0,
+    "average": 0.0,
+    "userLoads": [
+    ],
+    "userOrders": [
+    ]
+}''';
+
+  late AppData appData;
+
+  @protected
+  @mustCallSuper
+  void initState() {
+    appData = AppData.fromJson(jsonDecode(_content));
+  }
+
   Widget _getPages(int index) {
     switch (index) {
       case 0:
         return HomePage(
-            stock: _stock,
-            average: _average,
-            userLoads: _userLoads,
+            stock: appData.stock,
+            average: appData.average,
+            userLoads: appData.userLoads,
             deleteLoad: _deleteLoad,
             addNewLoad: _addNewLoads,
             addNewOrder: _addNewOrder);
       case 1:
         return SpesePage(
-          stock: _stock,
-          average: _average,
+          stock: appData.stock,
+          average: appData.average,
+          userOrders: appData.userOrders,
           addNewOrder: _addNewOrder,
-          userOrders: _userOrders,
           deleteOrder: _deleteOrder,
         );
       case 2:
@@ -84,12 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
         Loads(id: DateTime.now().toString(), bags: bags, date: date);
 
     setState(() {
-      _stock -= newLoad.bags;
-      _average = ((_average * _userLoads.length) + newLoad.bags) /
-          (_userLoads.length + 1);
+      appData.stock -= newLoad.bags;
+      appData.average =
+          ((appData.average * appData.userLoads.length) + newLoad.bags) /
+              (appData.userLoads.length + 1);
 
-      _userLoads.add(newLoad);
-      orderByDate(_userLoads);
+      appData.userLoads.add(newLoad);
+      orderByDate(appData.userLoads);
     });
   }
 
@@ -101,33 +122,35 @@ class _MyHomePageState extends State<MyHomePage> {
         totalAmount: totalAmount);
 
     setState(() {
-      _stock += bags;
-      _userOrders.add(newOrder);
+      appData.stock += bags;
+      appData.userOrders.add(newOrder);
     });
   }
 
   void _deleteLoad(String id) {
     setState(() {
-      Loads loadToBeRemoved = _userLoads.firstWhere((load) => load.id == id);
+      Loads loadToBeRemoved =
+          appData.userLoads.firstWhere((load) => load.id == id);
 
-      _stock += loadToBeRemoved.bags;
-      _average = ((_average * _userLoads.length) - loadToBeRemoved.bags) /
-          (_userLoads.length - 1);
-      if (_average.isNaN) {
-        _average = 0.0;
+      appData.stock += loadToBeRemoved.bags;
+      appData.average = ((appData.average * appData.userLoads.length) -
+              loadToBeRemoved.bags) /
+          (appData.userLoads.length - 1);
+      if (appData.average.isNaN) {
+        appData.average = 0.0;
       }
 
-      _userLoads.remove(loadToBeRemoved);
+      appData.userLoads.remove(loadToBeRemoved);
     });
   }
 
   void _deleteOrder(String id) {
     setState(() {
       Orders orderToBeRemoved =
-          _userOrders.firstWhere((order) => order.id == id);
+          appData.userOrders.firstWhere((order) => order.id == id);
 
-      _stock -= orderToBeRemoved.bags;
-      _userOrders.remove(orderToBeRemoved);
+      appData.stock -= orderToBeRemoved.bags;
+      appData.userOrders.remove(orderToBeRemoved);
     });
   }
 
