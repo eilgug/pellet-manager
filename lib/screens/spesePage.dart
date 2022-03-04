@@ -30,12 +30,12 @@ class SpesePage extends StatelessWidget {
       children: <Widget>[
         Row(children: [
           SacchiRimanenti(
-            stock: stock,
+            stock: stock > 0 ? stock : 0,
             average: average,
             newOrder: () => startAddNewOrder(context, stock, addNewOrder),
           ),
           Autonomia(
-            ggRestanti: stock / average,
+            ggRestanti: stock / average < 0 ? 0.0 : stock / average,
           ),
         ]),
         const SizedBox(

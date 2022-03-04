@@ -6,9 +6,7 @@ import 'package:pellet_manager/models/appdata.dart';
 
 class FileHandler {
   static File? _file;
-  static const _fileName = 'appData.json';
-
-  static AppData? _appData;
+  static const _fileNameAppData = 'appData.json';
 
   FileHandler._privateConstructor();
 
@@ -25,7 +23,7 @@ class FileHandler {
     final _directory = await getApplicationDocumentsDirectory();
     final _path = _directory.path;
 
-    return File('$_path/$_fileName');
+    return File('$_path/$_fileNameAppData');
   }
 
   Future<void> writeAppData(AppData appData) async {

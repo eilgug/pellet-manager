@@ -32,12 +32,14 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SacchiRimanenti(
-                stock: stock,
-                average: average,
-                newOrder: () => startAddNewOrder(context, stock, addNewOrder)),
+              stock: stock > 0 ? stock : 0,
+              average: average,
+              newOrder: () => startAddNewOrder(context, stock, addNewOrder),
+            ),
             ConsumoMedio(
-                average: average,
-                newLoad: () => startAddNewLoads(context, stock, addNewLoad)),
+              average: average,
+              newLoad: () => startAddNewLoads(context, stock, addNewLoad),
+            ),
           ],
         ),
         const SizedBox(

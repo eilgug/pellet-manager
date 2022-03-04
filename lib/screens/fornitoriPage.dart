@@ -5,6 +5,16 @@ class FornitoriPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Cooming soon...',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+        ],
+      ),
+    );
   }
 }
