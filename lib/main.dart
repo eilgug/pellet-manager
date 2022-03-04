@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pellet_manager/core/filehandler.dart';
 import 'package:pellet_manager/models/appdata.dart';
@@ -13,6 +14,8 @@ import 'models/loads.dart';
 import 'models/orders.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -57,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _fileHandler.readAppData().then((AppData value) {
       setState(() {
         appData = value;
+        FlutterNativeSplash.remove();
       });
     });
   }
