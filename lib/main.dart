@@ -7,7 +7,9 @@ import 'package:pellet_manager/screens/aboutPage.dart';
 import 'package:pellet_manager/screens/fornitoriPage.dart';
 import 'package:pellet_manager/screens/homePage.dart';
 import 'package:pellet_manager/screens/spesePage.dart';
+import 'package:pellet_manager/screens/welcomeScreen.dart';
 import 'package:pellet_manager/widgets/myBottomAppBar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/utils.dart';
 import 'models/loads.dart';
@@ -48,17 +50,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  bool _firstTime = true;
 
   AppData appData =
       AppData(stock: 0, average: 0, userLoads: [], userOrders: []);
-
-  //final FileHandler _fileHandler = widget.fileHandler;
 
   @override
   @protected
   @mustCallSuper
   void initState() {
     super.initState();
+
+    checkFirstOpen();
 
     widget.fileHandler.readAppData().then((AppData value) {
       setState(() {
@@ -90,6 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return const FornitoriPage();
       case 3:
         return const AboutPage();
+      case 4:
+        return WelcomeScreen(firstSetUp: _firstSetup);
       default:
         return const Text('Ops, qualcosa è andato storto!');
     }
@@ -160,6 +165,28 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future checkFirstOpen() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool _firstCheck = (preferences.getBool('firstTime') ?? true);
+
+    if (_firstCheck) {
+      await preferences.setBool('firstTime', false);
+      _navigate(4);
+    } else {
+      _firstTime = false;
+      _navigate(0);
+    }
+  }
+
+  void _firstSetup(int bags) {
+    setState(() {
+      appData.stock += bags;
+      widget.fileHandler.writeAppData(appData);
+      _firstTime = false;
+      _navigate(0);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +199,8 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         elevation: 0,
       ),
-      bottomNavigationBar: MyBottomAppBar(onTap: _navigate),
+      bottomNavigationBar: Visibility(
+          visible: !_firstTime, child: MyBottomAppBar(onTap: _navigate)),
       body: _getPages(_selectedIndex),
     );
   }
