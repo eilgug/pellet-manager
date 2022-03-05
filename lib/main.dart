@@ -29,14 +29,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'PelletManager'),
+      home:
+          MyHomePage(title: 'PelletManager', fileHandler: FileHandler.instance),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title, required this.fileHandler})
+      : super(key: key);
 
+  final FileHandler fileHandler;
   final String title;
 
   @override
@@ -49,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   AppData appData =
       AppData(stock: 0, average: 0, userLoads: [], userOrders: []);
 
-  final FileHandler _fileHandler = FileHandler.instance;
+  //final FileHandler _fileHandler = widget.fileHandler;
 
   @override
   @protected
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _fileHandler.readAppData().then((AppData value) {
+    widget.fileHandler.readAppData().then((AppData value) {
       setState(() {
         appData = value;
         FlutterNativeSplash.remove();
@@ -110,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appData.userLoads.add(newLoad);
       orderByDate(appData.userLoads);
-      _fileHandler.writeAppData(appData);
+      widget.fileHandler.writeAppData(appData);
     });
   }
 
@@ -124,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       appData.stock += bags;
       appData.userOrders.add(newOrder);
-      _fileHandler.writeAppData(appData);
+      widget.fileHandler.writeAppData(appData);
     });
   }
 
@@ -142,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
 
       appData.userLoads.remove(loadToBeRemoved);
-      _fileHandler.writeAppData(appData);
+      widget.fileHandler.writeAppData(appData);
     });
   }
 
@@ -153,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appData.stock -= orderToBeRemoved.bags;
       appData.userOrders.remove(orderToBeRemoved);
-      _fileHandler.writeAppData(appData);
+      widget.fileHandler.writeAppData(appData);
     });
   }
 
